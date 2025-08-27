@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day & Night KJV Verse</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="theme-container night-theme">
+        
+        <div class="background day-background">
+            <div class="sun"></div>
+            <div class="cloud cloud1"></div>
+            <div class="cloud cloud2"></div>
+            <div class="cloud cloud3"></div>
+            <div class="bird-container"></div>
+            <div class="grass"></div>
+            <div class="tree left"></div>
+            <div class="tree right"></div>
+        </div>
+
+        <div class="background night-background">
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+        </div>
+
+        <div class="verse-container">
+            <h1>Your Daily KJV Verse</h1>
+            <button id="getVerseBtn">Get a New Verse</button>
+            <div id="verseBox" class="verse-box">
+                <div id="verseText" class="verse-text"></div>
+                <div id="verseReference" class="verse-reference"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

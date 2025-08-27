@@ -1,0 +1,300 @@
+/* --- BASE STYLES --- */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', serif;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* --- THEME CONTAINER --- */
+.theme-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    transition: background-color 1.5s ease;
+    overflow: hidden;
+}
+
+/* Day/Night background transition */
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: opacity 2s ease;
+}
+
+/* --- DAY THEME --- */
+.day-theme {
+    background: linear-gradient(to bottom, #4facfe 0%, #00f2fe 40%, #a0f0ff 85%, #dffbff 100%);
+}
+
+/* Sky light rays overlay */
+.day-theme::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(45deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05) 1px, transparent 1px, transparent 20px);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.day-background {
+    opacity: 1;
+}
+
+/* --- SUN --- */
+.sun {
+    position: absolute;
+    top: 10%;
+    left: 75%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, #ffeb3b, #ffc107);
+    border-radius: 50%;
+    box-shadow: 0 0 50px 10px rgba(255, 235, 59, 0.7), 0 0 100px 20px rgba(255, 193, 7, 0.5);
+    z-index: 3;
+}
+
+.sun::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: -40px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255,223,0,0.3), transparent 70%);
+    border-radius: 50%;
+    animation: sunPulse 6s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes sunPulse {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.2); opacity: 0.6; }
+}
+
+/* --- CLOUDS --- */
+.cloud {
+    position: absolute;
+    background: radial-gradient(ellipse at center, #fff, #e0e0e0);
+    border-radius: 50%;
+    opacity: 0.9;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+    z-index: 2;
+}
+
+.cloud1 {
+    width: 250px;
+    height: 80px;
+    top: 80px;
+    left: -350px;
+    animation: cloudMove 70s linear infinite;
+    animation-delay: 5s;
+}
+
+.cloud2 {
+    width: 180px;
+    height: 70px;
+    top: 180px;
+    left: -250px;
+    animation: cloudMove 100s linear infinite;
+}
+
+.cloud3 {
+    width: 140px;
+    height: 60px;
+    top: 120px;
+    left: -200px;
+    animation: cloudMove 40s linear infinite;
+    animation-delay: 2s;
+}
+
+@keyframes cloudMove {
+    0% { left: -350px; }
+    100% { left: 110%; }
+}
+
+/* --- BIRDS --- */
+.bird-container {
+    position: absolute;
+    top: 15%;
+    left: -10%;
+    width: 100%;
+    height: 60px;
+    animation: birdFly 20s linear infinite;
+    z-index: 3;
+}
+
+.bird-container::before {
+    content: '🕊️ 🕊️ 🕊️'; /* Using unicode for simplicity */
+    position: absolute;
+    font-size: 2em;
+    animation: birdFlap 1s ease-in-out infinite alternate;
+}
+
+@keyframes birdFly {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(120vw); }
+}
+
+/* --- GRASS & TREES --- */
+.grass {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 25%;
+    background: linear-gradient(to top, #7ed957, #c0e3a6);
+    border-radius: 50% 50% 0 0 / 10% 10% 0 0;
+    z-index: 1;
+    animation: grassGentleSway 25s ease-in-out infinite alternate;
+}
+
+@keyframes grassGentleSway {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(1.01); }
+}
+
+.tree {
+    position: absolute;
+    bottom: 25%;
+    width: 80px;
+    height: 120px;
+    background: radial-gradient(circle at 50% 20%, #2e8b57, #1e5631);
+    border-radius: 50% 50% 0 0;
+    box-shadow: 0 8px 8px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.tree.left { left: 10%; }
+.tree.right { right: 10%; }
+
+
+/* --- NIGHT THEME (UNCHANGED) --- */
+.night-theme {
+    background-color: #0d0d1a;
+}
+
+.night-background {
+    opacity: 0; /* Initially hidden */
+}
+
+.night-theme .night-background {
+    opacity: 1; /* Show night elements when night-theme is active */
+}
+
+.night-theme .day-background {
+    opacity: 0; /* Hide day elements when night-theme is active */
+}
+
+/* Reusing the starfield from the previous design */
+#stars, #stars2, #stars3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)), 
+                      radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)), 
+                      radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)), 
+                      radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)), 
+                      radial-gradient(2px 2px at 130px 140px, #eee, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 200px 200px;
+}
+
+#stars { animation: star-fall 30s linear infinite; }
+#stars2 { animation: star-fall 50s linear infinite; background-size: 150px 150px; }
+#stars3 { animation: star-fall 70s linear infinite; background-size: 100px 100px; }
+
+@keyframes star-fall {
+    from { transform: translateY(0); }
+    to { transform: translateY(100%); }
+}
+
+/* --- COMMON UI STYLES --- */
+.verse-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
+    max-width: 700px;
+    padding: 20px;
+    z-index: 4;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    transition: color 1.5s ease;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 1s ease, border-color 1s ease, color 1s ease;
+}
+
+.verse-box {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 1s ease, transform 0.6s ease, background-color 1s ease, box-shadow 1s ease;
+}
+
+.verse-box.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.verse-text {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+    transition: color 1s ease;
+}
+
+.verse-reference {
+    font-size: 1.1em;
+    transition: color 1s ease;
+}
+
+/* --- THEME-SPECIFIC UI STYLES --- */
+/* Day colors */
+.day-theme h1 { color: #2c3e50; text-shadow: 1px 1px 3px rgba(255,255,255,0.7); }
+.day-theme button { background: #fff; border: 1px solid #ccc; color: #333; }
+.day-theme button:hover { background: #f5f5f5; }
+.day-theme .verse-box {
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+.day-theme .verse-text { color: #333; }
+.day-theme .verse-reference { color: #666; }
+
+/* Night colors */
+.night-theme h1 { color: #e0e0e0; text-shadow: 0 0 10px rgba(255, 255, 255, 0.4); }
+.night-theme button { background: transparent; border: 2px solid #5a5871; color: #e0e0e0; }
+.night-theme button:hover { background: rgba(255, 255, 255, 0.1); border-color: #f0f8ff; color: #f0f8ff; }
+.night-theme .verse-box {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+.night-theme .verse-text { color: #f0f8ff; }
+.night-theme .verse-reference { color: #b0c4de; }
